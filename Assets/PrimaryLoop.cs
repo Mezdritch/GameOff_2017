@@ -6,13 +6,17 @@ using UnityEngine.UI;
 public class PrimaryLoop : MonoBehaviour
 {
 
-    //Init, cycle,
+    //Init, cycle, worldmap, fight,, dance, chance
     private IEnumerable state;
+    public string stateP;
 
     //Stats & UI
     private Transform cyclesUI;
     private int cycles;
 
+    //Players
+    public GameObject Eli, Nina, Riviera, Blue;
+    public string theControlledPlayer;
 
     //////////////////////////////
     // Start
@@ -45,10 +49,26 @@ public class PrimaryLoop : MonoBehaviour
         Debug.Log(state);
 
         //UI
-        SetupUi();
+        //SetupUi();
+
+        //Get Players
+        Eli = GameObject.Find("Player_Eli");
+        Nina = GameObject.Find("Player_Nina");
+        Riviera = GameObject.Find("Player_Riviera");
+        Blue = GameObject.Find("Player_Blue");
+        
+        //Who's controlled?
+        if (Eli.GetComponent<Player>().controlled)
+            theControlledPlayer = "Eli";
+        else if (Nina.GetComponent<Player>().controlled)
+            theControlledPlayer = "Nina";
+        else if (Riviera.GetComponent<Player>().controlled)
+            theControlledPlayer = "Riviera";
+        else
+            theControlledPlayer = "Blue";
 
         yield return new WaitForSeconds(2);
-        state = Cycle();
+        state = worldmap();
     }
 
     //////////////////////////////
@@ -62,6 +82,26 @@ public class PrimaryLoop : MonoBehaviour
         yield return new WaitForSeconds(10);
         state = Cycle();
     }
+
+    //////////////////////////////
+    // WORLDMAP
+    private IEnumerable worldmap()
+    {
+        //Debug.Log(state);
+
+        yield return null;
+    }
+
+    //////////////////////////////
+    // FIGHT
+    private IEnumerable fight()
+    {
+        //Debug.Log(state);
+
+        yield return null;
+    }
+
+
 
     //////////////////////////////
     // Setup UI

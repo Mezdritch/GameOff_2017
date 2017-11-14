@@ -5,15 +5,18 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour {
 
     public int speed;
+    public bool ready;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        ready = true;
+    }
 
     // Update is called once per frame
     void Update()
     {
+        if (ready)
+        { 
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey("d"))
         {
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
@@ -29,6 +32,7 @@ public class CameraControl : MonoBehaviour {
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey("w"))
         {
             transform.Translate(new Vector3(0, 0, speed * Time.deltaTime));
+        }
         }
     }
 }
