@@ -19,12 +19,16 @@ public class Menu : MonoBehaviour
     public Canvas playersMenu;
     public Button playersButton;
     private bool playersMenuDisplayed;
+    public Transform EliMoney, NinaMoney, RivieraMoney, BlueMoney;
+    public Transform EliSuccess, NinaSuccess, RivieraSuccess, BlueSuccess;
+    public Transform EliFame, NinaFame, RivieraFame, BlueFame;
 
     //Event Menu
     public Canvas eventMenu;
     public Transform eventSprite;
     public Transform eventName;
     public Button fightButton, chanceButton, danceButton;
+    public Area eventArea;
 
     // Use this for initialization
     void Start()
@@ -108,6 +112,29 @@ public class Menu : MonoBehaviour
             playersMenu.enabled = false;
         else
         {
+            GameObject eli = this.GetComponentInParent<PrimaryLoop>().Eli;
+            GameObject nina = this.GetComponentInParent<PrimaryLoop>().Nina;
+            GameObject riviera = this.GetComponentInParent<PrimaryLoop>().Riviera;
+            GameObject blue = this.GetComponentInParent<PrimaryLoop>().Blue;
+            //Update
+            //Eli
+            EliMoney.GetComponent<Text>().text = eli.GetComponent<Player>().Money.ToString();
+            EliSuccess.GetComponent<Text>().text = eli.GetComponent<Player>().Success.ToString();
+            EliFame.GetComponent<Text>().text = eli.GetComponent<Player>().Fame.ToString();
+            //Nina
+            NinaMoney.GetComponent<Text>().text = nina.GetComponent<Player>().Money.ToString();
+            NinaSuccess.GetComponent<Text>().text = nina.GetComponent<Player>().Success.ToString();
+            NinaFame.GetComponent<Text>().text = nina.GetComponent<Player>().Fame.ToString();
+            //Riviera
+            RivieraMoney.GetComponent<Text>().text = riviera.GetComponent<Player>().Money.ToString();
+            RivieraSuccess.GetComponent<Text>().text = riviera.GetComponent<Player>().Success.ToString();
+            RivieraFame.GetComponent<Text>().text = riviera.GetComponent<Player>().Fame.ToString();
+            //Blue
+            BlueMoney.GetComponent<Text>().text = blue.GetComponent<Player>().Money.ToString();
+            BlueSuccess.GetComponent<Text>().text = blue.GetComponent<Player>().Success.ToString();
+            BlueFame.GetComponent<Text>().text = blue.GetComponent<Player>().Fame.ToString();
+
+            //Show
             playersMenu.enabled = true;
         }
         Debug.Log("|Players|");
@@ -117,6 +144,8 @@ public class Menu : MonoBehaviour
     //EVENT MENU
     public void eventMenuPrepare(Area area)
     {
+        eventArea = area;
+
         eventMenuHideButtons();
         eventMenu.enabled = true;
         eventSprite.GetComponent<Image>().sprite = area.Image;
@@ -141,7 +170,7 @@ public class Menu : MonoBehaviour
                 chanceButton.gameObject.SetActive(true);
                 break;
         }
-
+        /*
         //////////////////////////////
         // Eli:     Color.red       //
         // Nina:    Color.yellow    //
@@ -171,6 +200,7 @@ public class Menu : MonoBehaviour
         area.RingOuter.gameObject.SetActive(true);
         Light lt = area.Light.GetComponent<Light>();
         lt.color = playersColor;
+        */
     }
 
     // ---------- ---------- ---------- ---------- 
@@ -180,5 +210,40 @@ public class Menu : MonoBehaviour
         danceButton.gameObject.SetActive(false);
         fightButton.gameObject.SetActive(false);
         chanceButton.gameObject.SetActive(false);
+    }
+
+    // ---------- ---------- ---------- ---------- 
+    //EVENT - WIN AREA
+    public void winArea()
+    {
+        //////////////////////////////
+        // Eli:     Color.red       //
+        // Nina:    Color.yellow    //
+        // Riviera: Color.green     //
+        // Blue:    Color.blue      //
+        //////////////////////////////
+
+        Color playersColor = Color.blue;
+        switch (this.GetComponentInParent<PrimaryLoop>().theControlledPlayer)
+        {
+            case "Eli":
+                playersColor = Color.red;
+                break;
+            case "Nina":
+                playersColor = Color.yellow;
+                break;
+            case "Riviera":
+                playersColor = Color.green;
+                break;
+            case "Blue":
+                playersColor = Color.blue;
+                break;
+        }
+
+        eventArea.Ring.gameObject.SetActive(true);
+        eventArea.Ring.GetComponent<Image>().color = playersColor;
+        eventArea.RingOuter.gameObject.SetActive(true);
+        Light lt = eventArea.Light.GetComponent<Light>();
+        lt.color = playersColor;
     }
 }

@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 7941419}
   - component: {fileID: 7941418}
   m_Layer: 0
-  m_Name: Panel (3)
+  m_Name: Panel_Nina
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1330,6 +1330,80 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &141628212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 141628213}
+  - component: {fileID: 141628215}
+  - component: {fileID: 141628214}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &141628213
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 141628212}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1030851573}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 30.8, y: -16.3}
+  m_SizeDelta: {x: 120, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &141628214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 141628212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: e2704b7b84f12da4a8250ed61dcc5166, type: 3}
+    m_FontSize: 60
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 100
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 1
+--- !u!222 &141628215
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 141628212}
 --- !u!1 &151757407
 GameObject:
   m_ObjectHideFlags: 0
@@ -2414,7 +2488,7 @@ GameObject:
   - component: {fileID: 305756546}
   - component: {fileID: 305756545}
   m_Layer: 0
-  m_Name: Panel (1)
+  m_Name: Panel_Riviera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4404,6 +4478,7 @@ RectTransform:
   - {fileID: 1961650468}
   - {fileID: 1995134586}
   - {fileID: 2022157837}
+  - {fileID: 1030851573}
   m_Father: {fileID: 1972310842}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7620,6 +7695,105 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1026434574}
+--- !u!1 &1030851572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1030851573}
+  - component: {fileID: 1030851575}
+  - component: {fileID: 1030851574}
+  - component: {fileID: 1030851576}
+  - component: {fileID: 1030851577}
+  m_Layer: 5
+  m_Name: Rounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1030851573
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1030851572}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 141628213}
+  m_Father: {fileID: 569213870}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 875, y: 475}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1030851574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1030851572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 393234c551620ed4790e6b69887328eb, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1030851575
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1030851572}
+--- !u!114 &1030851576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1030851572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
+--- !u!114 &1030851577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1030851572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.09803922}
+  m_EffectDistance: {x: 10, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!4 &1043447860 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4141500862859630, guid: d9d62e47a61fbed43bac779130f954c5,
@@ -11266,7 +11440,7 @@ GameObject:
   - component: {fileID: 1454821588}
   - component: {fileID: 1454821587}
   m_Layer: 0
-  m_Name: Panel (2)
+  m_Name: Panel_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13322,7 +13496,7 @@ GameObject:
   - component: {fileID: 1770721296}
   - component: {fileID: 1770721295}
   m_Layer: 0
-  m_Name: Panel
+  m_Name: Panel_Eli
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14505,6 +14679,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateP: 
+  Eli: {fileID: 0}
+  Nina: {fileID: 0}
+  Riviera: {fileID: 0}
+  Blue: {fileID: 0}
+  theControlledPlayer: 
 --- !u!114 &1910701717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14522,12 +14701,25 @@ MonoBehaviour:
   resumeButton: {fileID: 1801990525}
   playersMenu: {fileID: 1764431635}
   playersButton: {fileID: 2038391855}
+  EliMoney: {fileID: 1806962131}
+  NinaMoney: {fileID: 445347123}
+  RivieraMoney: {fileID: 1796723683}
+  BlueMoney: {fileID: 690355252}
+  EliSuccess: {fileID: 2146345117}
+  NinaSuccess: {fileID: 992021288}
+  RivieraSuccess: {fileID: 1489856264}
+  BlueSuccess: {fileID: 1856363456}
+  EliFame: {fileID: 912285358}
+  NinaFame: {fileID: 1338755163}
+  RivieraFame: {fileID: 2144540664}
+  BlueFame: {fileID: 151757408}
   eventMenu: {fileID: 23402399}
   eventSprite: {fileID: 1559664917}
   eventName: {fileID: 2029500793}
   fightButton: {fileID: 1825638776}
   chanceButton: {fileID: 567657772}
   danceButton: {fileID: 104408772}
+  eventArea: {fileID: 0}
 --- !u!224 &1910701718
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14563,6 +14755,7 @@ MonoBehaviour:
   fightCanvas: {fileID: 703173575}
   VsPanel: {fileID: 1549557477}
   ButtonsPanel: {fileID: 159306855}
+  RoundIncreased: {fileID: 141628213}
   p_Healthbar: {fileID: 288273097}
   o_Healthbar: {fileID: 2019463223}
 --- !u!4 &1914000005 stripped

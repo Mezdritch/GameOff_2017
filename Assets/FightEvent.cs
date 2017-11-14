@@ -17,8 +17,10 @@ public class FightEvent : MonoBehaviour {
     //UI
     public RectTransform VsPanel;
     public RectTransform ButtonsPanel;
+    public RectTransform RoundIncreased;
 
     //Stats
+    private GameObject thePlayer;
     private int theChoice;
     private int p_HP, p_STR, p_DEX, p_LCK;
     private int o_HP, o_STR, o_DEX, o_LCK;
@@ -53,6 +55,7 @@ public class FightEvent : MonoBehaviour {
         //Start with the Init state
         state = Init();
 
+
         //Start state machine
         StartCoroutine(RunStateMachine());
     }
@@ -64,6 +67,36 @@ public class FightEvent : MonoBehaviour {
     {
         Debug.Log("| Fight |" + state);
 
+        //Prepare stats
+        ///////////////
+        //PLAYER
+        switch (this.GetComponentInParent<PrimaryLoop>().theControlledPlayer)
+        {
+            case "Eli":
+                thePlayer = this.GetComponentInParent<PrimaryLoop>().Eli;
+                break;
+            case "Nina":
+                thePlayer = this.GetComponentInParent<PrimaryLoop>().Nina;
+                break;
+            case "Riviera":
+                thePlayer = this.GetComponentInParent<PrimaryLoop>().Riviera;
+                break;
+            case "Blue":
+                thePlayer = this.GetComponentInParent<PrimaryLoop>().Blue;
+                break;
+        }
+        p_HP = thePlayer.GetComponent<Player>().HP;
+        p_STR = thePlayer.GetComponent<Player>().STR;
+        p_DEX = thePlayer.GetComponent<Player>().DEX;
+        p_LCK = thePlayer.GetComponent<Player>().LCK;
+
+        //OPPONENT
+        o_HP = 20;
+        o_STR = 3;
+        o_DEX = 3;
+        o_LCK = 3;
+
+
         //UI & Camera (switch from main to fight)
         mainCam.enabled = false;
         fightCam.enabled = true;
@@ -72,19 +105,6 @@ public class FightEvent : MonoBehaviour {
         GetComponent<Menu>().mainMenu.enabled = false;
         GetComponent<Menu>().eventMenu.enabled = false;
         GetComponent<Menu>().eventMenuHideButtons();
-
-        //Prepare stats
-        ///////////////
-        //PLAYER
-        p_HP = 20;
-        p_STR = 3;
-        p_DEX = 3;
-        p_LCK = 3;
-        //OPPONENT
-        o_HP = 20;
-        o_STR = 3;
-        o_DEX = 3;
-        o_LCK = 3;
 
         yield return new WaitForSeconds(2);
 
@@ -129,8 +149,12 @@ public class FightEvent : MonoBehaviour {
         yield return null; //new WaitForSeconds(0.25f);
 
         //End?
-        if (p_HP <= 0 || o_HP <= 0)
-            state = End();
+        if (p_HP <= 0 && o_HP > 0)
+            state = End("Lost");
+        else if (p_HP > 0 && o_HP <= 0)
+            state = End("Win");
+        else if (p_HP <= 0 && o_HP <= 0)
+            state = End("Draw");
         else
             state = Choice();
     }
@@ -143,15 +167,34 @@ public class FightEvent : MonoBehaviour {
         Debug.Log("| Fight |" + state);
 
         yield return new WaitForSeconds(2);
-        state = End();
+        state = End("");
     }
 
 
     //////////////////////////////
     // END
-    private IEnumerable End()
+    private IEnumerable End(string WinLost)
     {
         Debug.Log("| Fight |" + state);
+
+        switch (WinLost)
+        {
+            case "Lost":
+                Debug.Log("| ~ LOST ~ ");
+                thePlayer.GetComponent<Player>().Money -= 10; 
+                break;
+            case "Win":
+                Debug.Log("| ~ WIN ~ ");
+                thePlayer.GetComponent<Player>().Money += 20;
+                this.GetComponentInParent<Menu>().winArea();
+                break;
+            case "Draw":
+                Debug.Log("| ~ DRAW ~ ");
+                break;
+            default:
+                break;
+        }
+
 
         //UI & Camera (switch from fight to main)
         mainCam.enabled = true;
@@ -166,6 +209,12 @@ public class FightEvent : MonoBehaviour {
 
         VsPanel.GetComponent<movingUI>().ResetToStarting();
         ButtonsPanel.GetComponent<movingUI>().ResetToStarting();
+
+
+        //Increase the amount of round by 1;
+        //RoundIncreased += 1;
+        int _roundIncreased = System.Int32.Parse(RoundIncreased.GetComponent<Text>().text);
+        RoundIncreased.GetComponent<Text>().text = (_roundIncreased + 1).ToString();
 
         yield return null;
         state = null;
