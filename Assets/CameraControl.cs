@@ -6,6 +6,7 @@ public class CameraControl : MonoBehaviour {
 
     public int speed;
     public bool ready;
+    public Camera cam;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +16,7 @@ public class CameraControl : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (ready)
+        if (ready && cam.enabled)
         { 
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey("d"))
         {

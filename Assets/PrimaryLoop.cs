@@ -49,7 +49,6 @@ public class PrimaryLoop : MonoBehaviour
         Debug.Log(state);
 
         //UI
-        //SetupUi();
 
         //Get Players
         Eli = GameObject.Find("Player_Eli");
@@ -72,50 +71,61 @@ public class PrimaryLoop : MonoBehaviour
     }
 
     //////////////////////////////
-    // CYCLE
-    private IEnumerable Cycle()
-    {
-        Debug.Log(state);
-
-        IncrementCycles();
-
-        yield return new WaitForSeconds(10);
-        state = Cycle();
-    }
-
-    //////////////////////////////
     // WORLDMAP
     private IEnumerable worldmap()
     {
-        //Debug.Log(state);
 
         yield return null;
     }
 
     //////////////////////////////
-    // FIGHT
-    private IEnumerable fight()
+    // END
+    private IEnumerable End()
     {
-        //Debug.Log(state);
-
+        yield return new WaitForSeconds(2);
+        this.GetComponentInParent<Menu>().playersInfo();
+        yield return new WaitForSeconds(1);
+        this.GetComponentInParent<Menu>().GameEndPanel.SetActive(true);
+        yield return new WaitForSeconds(6);
+        Application.Quit();
         yield return null;
     }
 
-
-
     //////////////////////////////
-    // Setup UI
-    private void SetupUi()
+    // GameOver
+    public string GameOver()
     {
-        cyclesUI = GameObject.Find("Text_cycle_amount").transform;
+        string name = null;
+
+        if (DoesThePlayerWin(Eli))
+            name = "Eli";
+        if (DoesThePlayerWin(Nina))
+            name = "Nina";
+        if (DoesThePlayerWin(Riviera))
+            name = "Riviera";
+        if (DoesThePlayerWin(Blue))
+            name = "Blue";
+
+        if(name != null)
+            state = End();
+
+        return name;
     }
 
     //////////////////////////////
-    // Increment Cycles
-    private void IncrementCycles()
+    // GameOver?
+    public bool DoesThePlayerWin( GameObject player)
     {
-        cycles += 1;
-        cyclesUI.GetComponent<Text>().text = (cycles).ToString();
+        bool won = false;
+
+        if (player.GetComponent<Player>().Money > 1999)
+            won = true;
+        else if (player.GetComponent<Player>().Success > 1999)
+            won = true;
+        else if (player.GetComponent<Player>().Fame > 7)
+            won = true;
+
+        return won;
     }
 
 }

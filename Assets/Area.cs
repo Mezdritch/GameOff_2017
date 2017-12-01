@@ -5,6 +5,9 @@ public class Area : MonoBehaviour
 {
     public string Type;
     public string Player;
+    public int Money, Success, Fame;
+
+    //UI
     public Sprite Image;
     public Transform Ring;
     public Transform RingOuter;

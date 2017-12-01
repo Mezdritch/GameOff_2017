@@ -18,6 +18,9 @@ public class FightEvent : MonoBehaviour {
     public RectTransform VsPanel;
     public RectTransform ButtonsPanel;
     public RectTransform RoundIncreased;
+    public Image vsPlayer, vsOpponent;
+    public Sprite imgEli, imgNina, imgRiviera, imgBlue;
+    public Sprite imgNW, imgCY;
 
     //Stats
     private GameObject thePlayer;
@@ -26,6 +29,11 @@ public class FightEvent : MonoBehaviour {
     private int o_HP, o_STR, o_DEX, o_LCK;
     private string display;
     public RectTransform p_Healthbar, o_Healthbar;
+
+    //Feedback
+    public Transform p_Popup, o_Popup, p_end;
+    public GameObject Punch_Popup, Kick_Popup, Pump_Popup, Sucker_Popup;
+    public GameObject Lost_Popup, Win_Popup, Draw_Popup;
 
     //////////////////////////////
     // Start
@@ -74,15 +82,19 @@ public class FightEvent : MonoBehaviour {
         {
             case "Eli":
                 thePlayer = this.GetComponentInParent<PrimaryLoop>().Eli;
+                vsPlayer.sprite = imgEli;
                 break;
             case "Nina":
                 thePlayer = this.GetComponentInParent<PrimaryLoop>().Nina;
+                vsPlayer.sprite = imgNina;
                 break;
             case "Riviera":
                 thePlayer = this.GetComponentInParent<PrimaryLoop>().Riviera;
+                vsPlayer.sprite = imgRiviera;
                 break;
             case "Blue":
                 thePlayer = this.GetComponentInParent<PrimaryLoop>().Blue;
+                vsPlayer.sprite = imgBlue;
                 break;
         }
         p_HP = thePlayer.GetComponent<Player>().HP;
@@ -96,6 +108,8 @@ public class FightEvent : MonoBehaviour {
         o_DEX = 3;
         o_LCK = 3;
 
+        //Avatar
+        vsOpponent.sprite = imgNW;
 
         //UI & Camera (switch from main to fight)
         mainCam.enabled = false;
@@ -106,7 +120,7 @@ public class FightEvent : MonoBehaviour {
         GetComponent<Menu>().eventMenu.enabled = false;
         GetComponent<Menu>().eventMenuHideButtons();
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
 
         VsPanel.GetComponent<movingUI>().timeToMove = true;
         ButtonsPanel.GetComponent<movingUI>().timeToMove = true;
@@ -139,6 +153,8 @@ public class FightEvent : MonoBehaviour {
                 Move4('p');
                 break;
         }
+
+
 
         AIchoice();
         adjustHealthbars('o');
@@ -181,20 +197,36 @@ public class FightEvent : MonoBehaviour {
         {
             case "Lost":
                 Debug.Log("| ~ LOST ~ ");
-                thePlayer.GetComponent<Player>().Money -= 10; 
+                GameObject go3 = Instantiate(Lost_Popup) as GameObject;
+                go3.transform.position = p_end.position;
+
+                thePlayer.GetComponent<Player>().Money -= 10;
+                this.GetComponentInParent<Menu>().failArea(this.GetComponentInParent<PrimaryLoop>().theControlledPlayer); 
                 break;
             case "Win":
                 Debug.Log("| ~ WIN ~ ");
-                thePlayer.GetComponent<Player>().Money += 20;
-                this.GetComponentInParent<Menu>().winArea();
+                GameObject go4 = Instantiate(Win_Popup) as GameObject;
+                go4.transform.position = p_end.position;
+
+                //thePlayer.GetComponent<Player>().Money += 20;
+                thePlayer.GetComponent<Player>().Money += System.Int32.Parse(this.GetComponentInParent<Menu>().eventMoney.GetComponent<Text>().text);
+                thePlayer.GetComponent<Player>().Success += System.Int32.Parse(this.GetComponentInParent<Menu>().eventSuccess.GetComponent<Text>().text);
+                thePlayer.GetComponent<Player>().Fame += System.Int32.Parse(this.GetComponentInParent<Menu>().eventFame.GetComponent<Text>().text);
+                this.GetComponentInParent<Menu>().winArea(this.GetComponentInParent<PrimaryLoop>().theControlledPlayer);
                 break;
             case "Draw":
                 Debug.Log("| ~ DRAW ~ ");
+                GameObject go5 = Instantiate(Draw_Popup) as GameObject;
+                go5.transform.position = p_end.position;
+
+                this.GetComponentInParent<Menu>().failArea(this.GetComponentInParent<PrimaryLoop>().theControlledPlayer);
                 break;
             default:
                 break;
         }
 
+        //Hold on for 2 sec
+        yield return new WaitForSeconds(2);
 
         //UI & Camera (switch from fight to main)
         mainCam.enabled = true;
@@ -215,6 +247,9 @@ public class FightEvent : MonoBehaviour {
         //RoundIncreased += 1;
         int _roundIncreased = System.Int32.Parse(RoundIncreased.GetComponent<Text>().text);
         RoundIncreased.GetComponent<Text>().text = (_roundIncreased + 1).ToString();
+
+        //Event for AIs
+        this.GetComponentInParent<City>().TurnEvents();
 
         yield return null;
         state = null;
@@ -253,11 +288,15 @@ public class FightEvent : MonoBehaviour {
         {
             case 'o':
                 p_HP = p_HP - o_STR;
-                //display = o_STR.ToString();
+                //Popup (Opponent)
+                GameObject go2 = Instantiate(Punch_Popup) as GameObject;
+                go2.transform.position = o_Popup.position;
                 break;
             case 'p':
                 o_HP = o_HP - p_STR;
-                //display = p_STR.ToString();
+                //Popup (Player)
+                GameObject go = Instantiate(Punch_Popup) as GameObject;
+                go.transform.position = p_Popup.position;
                 break;
         }
     }
@@ -271,41 +310,49 @@ public class FightEvent : MonoBehaviour {
             case 'o':
                 o_STR = o_STR * 2;
                 o_DEX = o_DEX + 2;
-                //display = "Pumping Up";
+                //Popup (Opponent)
+                GameObject go2 = Instantiate(Pump_Popup) as GameObject;
+                go2.transform.position = o_Popup.position;
                 break;
             case 'p':
                 p_STR = p_STR * 2;
                 p_DEX = p_DEX + 2;
-                //display = "Pumping Up";
+                //Popup (Player)
+                GameObject go = Instantiate(Pump_Popup) as GameObject;
+                go.transform.position = p_Popup.position;
                 break;
         }
     }
     ////////////////////////////////////////////////////////////
-    //SUCKERPUNCH   (2 damage & -2 STR & heal 2 Health))
+    //SUCKERPUNCH   (1 damage & -2 STR & heal 1 Health))
     public void Move3(char who_)
     {
         Debug.Log("SUCKERPUNCH " + who_);
         switch (who_)
         {
             case 'o':
-                o_HP = o_HP + 2;
+                o_HP = o_HP + 1;
                 if (o_HP > 20)
                     o_HP = 20;
-                p_HP = p_HP - 2;
+                p_HP = p_HP - 1;
                 p_STR = p_STR - 2;
                 if (p_STR < 1)
                     p_STR = 1;
-                //display = "2 + Debuff";
+                //Popup (Opponent)
+                GameObject go2 = Instantiate(Sucker_Popup) as GameObject;
+                go2.transform.position = o_Popup.position;
                 break;
             case 'p':
                 p_HP = p_HP + 2;
                 if (p_HP > 20)
                     p_HP = 20;
-                o_HP = o_HP - 2;
+                o_HP = o_HP - 1;
                 o_STR = o_STR - 2;
                 if (o_STR < 1)
                     o_STR = 1;
-                //display = "2 + Debuff";
+                //Popup (Player)
+                GameObject go = Instantiate(Sucker_Popup) as GameObject;
+                go.transform.position = p_Popup.position;
                 break;
         }
     }
@@ -318,11 +365,15 @@ public class FightEvent : MonoBehaviour {
         {
             case 'o':
                 p_HP = p_HP - o_DEX;
-                //display = o_STR.ToString();
+                //Popup (Opponent)
+                GameObject go2 = Instantiate(Kick_Popup) as GameObject;
+                go2.transform.position = o_Popup.position;
                 break;
             case 'p':
                 o_HP = o_HP - p_DEX;
-                //display = p_STR.ToString();
+                //Popup (Player)
+                GameObject go = Instantiate(Kick_Popup) as GameObject;
+                go.transform.position = p_Popup.position;
                 break;
         }
     }

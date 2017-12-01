@@ -543,7 +543,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1405949633778122}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5.96, y: 2.75, z: 12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1433,7 +1433,7 @@ Light:
   m_Type: 0
   m_Color: {r: 0, g: 0.14705884, b: 0.6985294, a: 1}
   m_Intensity: 10
-  m_Range: 20
+  m_Range: 15
   m_SpotAngle: 90
   m_CookieSize: 10
   m_Shadows:
@@ -1468,7 +1468,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 0.8586207, g: 1, b: 0, a: 1}
-  m_Intensity: 10
+  m_Intensity: 8
   m_Range: 10
   m_SpotAngle: 60
   m_CookieSize: 10
@@ -1504,7 +1504,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 0.8586207, g: 1, b: 0, a: 1}
-  m_Intensity: 10
+  m_Intensity: 8
   m_Range: 10
   m_SpotAngle: 60
   m_CookieSize: 10
@@ -1540,7 +1540,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 0.8586207, g: 1, b: 0, a: 1}
-  m_Intensity: 10
+  m_Intensity: 8
   m_Range: 10
   m_SpotAngle: 60
   m_CookieSize: 10
@@ -1579,6 +1579,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: Disco
   Player: 
+  Money: 125
+  Success: 150
+  Fame: 1
   Image: {fileID: 21300000, guid: 7796b5f2eec0eda489e932ab38ba370f, type: 3}
   Ring: {fileID: 224484967984503542}
   RingOuter: {fileID: 224692999307297728}

@@ -19,6 +19,10 @@ public class TitleAndProfiles : MonoBehaviour {
 
     public GameObject playerEli, playerNina, playerRiviera, playerBlue;
 
+    //Info
+    public Transform infoPanel;
+    private bool seeInfo = false;
+
     // ---------- ---------- ---------- ---------- 
     // START
     void Start () {
@@ -90,4 +94,45 @@ public class TitleAndProfiles : MonoBehaviour {
         Debug.Log("Loading" + 1);
     }
 
+    // ---------- ---------- ---------- ---------- 
+    //INFOPANELS
+    // Info
+    // 
+    public void actionInfo()
+    {
+        if (!seeInfo)
+        {
+            StartCoroutine(FadeBack());
+            seeInfo = true;
+        }
+        else if (seeInfo)
+        {
+            StartCoroutine(DoFade());
+            seeInfo = false;
+        }
+    }
+
+    //FADE /////
+    IEnumerator DoFade()
+    {
+        CanvasGroup canvasGroup = infoPanel.gameObject.GetComponent<CanvasGroup>();
+        while (canvasGroup.alpha > 0)
+        {
+            canvasGroup.alpha -= Time.deltaTime * 2;
+            yield return null;
+        }
+        canvasGroup.interactable = false;
+        yield return null;
+    }
+
+    //FADEBACK /////
+    IEnumerator FadeBack()
+    {
+        CanvasGroup canvasGroup = infoPanel.gameObject.GetComponent<CanvasGroup>();
+        while (canvasGroup.alpha < 0.98f)
+        {
+            canvasGroup.alpha += 0.1f;
+            yield return null;
+        }
+    }
 }
